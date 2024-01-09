@@ -1,5 +1,6 @@
 package br.com.yanvelasco.gestao_vagas.exceptions;
 
+import br.com.yanvelasco.gestao_vagas.exceptions.dto.ErrorMessageDTO;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
