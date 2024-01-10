@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.modules.company.candidate.entity;
+package br.com.yanvelasco.gestao_vagas.modules.candidate.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
