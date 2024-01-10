@@ -1,5 +1,6 @@
 package br.com.yanvelasco.gestao_vagas.modules.candidate.controllers;
 
+import br.com.yanvelasco.gestao_vagas.exceptions.UserAlreadyExists;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.entity.CandidateEntity;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.repository.CandidadeRepository;
 import jakarta.validation.Valid;
@@ -19,7 +20,13 @@ public class CandidateController {
     @PostMapping
     public CandidateEntity create(@RequestBody @Valid CandidateEntity candidateEntity){
         System.out.println(candidateEntity);
-        return this.candidadeRepository.save(candidateEntity);
+
+        candidadeRepository.findByUsernameOrEmail(candidateEntity.getUsername(), candidateEntity.getEmail())
+                .ifPresent(user ->{
+                    throw new UserAlreadyExists("Usuário já existe");
+                });
+
+        return candidadeRepository.save(candidateEntity);
     }
 
 }
