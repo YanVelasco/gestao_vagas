@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.modules.candidate.entity;
+package br.com.yanvelasco.gestao_vagas.modules.company.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -13,16 +13,13 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-@Entity(name = "candidate")
-@Table(name = "candidates")
-public class CandidateEntity {
+@Entity(name = "company")
+@Table(name = "company")
+public class CompanyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    @NotBlank(message = "O campo [nome] não deve estar em branco")
-    private String name;
 
     @NotBlank(message = "O campo [username] não deve estar em branco")
     @Pattern(regexp = "\\S+", message = "O campo [username] não deve conter espaços em branco")
@@ -34,11 +31,14 @@ public class CandidateEntity {
     @Length(min = 8, message = "O campo [password] deve ter no minímo 8 caracteres")
     private String password;
 
+    @NotBlank(message = "O campo [website] não deve estar em branco")
+    private String website;
+
+    @NotBlank(message = "O campo [nome] não deve estar em branco")
+    private String name;
+
     @NotBlank(message = "O campo [description] não deve estar em branco")
     private String description;
-
-    @NotBlank(message = "O campo [curriculum] não deve estar em branco")
-    private String curriculum;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

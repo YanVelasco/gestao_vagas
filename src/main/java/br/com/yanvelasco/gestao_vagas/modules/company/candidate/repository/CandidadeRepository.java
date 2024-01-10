@@ -1,6 +1,6 @@
-package br.com.yanvelasco.gestao_vagas.modules.candidate.repository;
+package br.com.yanvelasco.gestao_vagas.modules.company.candidate.repository;
 
-import br.com.yanvelasco.gestao_vagas.modules.candidate.entity.CandidateEntity;
+import br.com.yanvelasco.gestao_vagas.modules.company.candidate.entity.CandidateEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,7 @@
-package br.com.yanvelasco.gestao_vagas.modules.candidate.controllers;
+package br.com.yanvelasco.gestao_vagas.modules.company.candidate.controllers;
 
-import br.com.yanvelasco.gestao_vagas.exceptions.UserAlreadyExists;
-import br.com.yanvelasco.gestao_vagas.modules.candidate.entity.CandidateEntity;
-import br.com.yanvelasco.gestao_vagas.modules.candidate.repository.CandidadeRepository;
-import br.com.yanvelasco.gestao_vagas.modules.candidate.useCases.CreateCandidateUseCase;
+import br.com.yanvelasco.gestao_vagas.modules.company.candidate.entity.CandidateEntity;
+import br.com.yanvelasco.gestao_vagas.modules.company.candidate.useCases.CreateCandidateUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
