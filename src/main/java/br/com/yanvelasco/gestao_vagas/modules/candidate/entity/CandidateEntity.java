@@ -34,10 +34,10 @@ public class CandidateEntity {
     @Length(min = 8, message = "O campo [password] deve ter no minímo 8 caracteres")
     private String password;
 
-    @NotBlank(message = "O campo [username] não deve estar em branco")
+    @NotBlank(message = "O campo [description] não deve estar em branco")
     private String description;
 
-    @NotBlank(message = "O campo [username] não deve estar em branco")
+    @NotBlank(message = "O campo [curriculum] não deve estar em branco")
     private String curriculum;
 
     @CreationTimestamp
