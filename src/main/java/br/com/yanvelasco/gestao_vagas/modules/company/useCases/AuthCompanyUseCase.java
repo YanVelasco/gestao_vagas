@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
+import java.time.Duration;
+import java.time.Instant;
 
 @Service
 public class AuthCompanyUseCase {
@@ -26,8 +28,8 @@ public class AuthCompanyUseCase {
 
     public String execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
 
-        var company = companyRepository.findByUsername(authCompanyDTO.username()).orElseThrow(() ->{
-                    throw new UsernameNotFoundException("Company não encontrada");
+        var company = companyRepository.findByUsernameOrPassword(authCompanyDTO.username(), authCompanyDTO.password()).orElseThrow(() ->{
+                    throw new UsernameNotFoundException("Username/password incorreto.");
                }
         );
 
@@ -40,8 +42,9 @@ public class AuthCompanyUseCase {
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
          var token = JWT.create().withIssuer("Javagas")
-                .withSubject(company.getId().toString())
-                .sign(algorithm);
+                 .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
+                    .withSubject(company.getId().toString())
+                        .sign(algorithm);
 
          return token;
     }
