@@ -21,7 +21,7 @@ public class CandidateController {
     public ResponseEntity<Object> create(@RequestBody @Valid CandidateEntity candidateEntity){
         System.out.println(candidateEntity);
         try {
-            var result = createCandidateUseCase.excute(candidateEntity);
+            var result = createCandidateUseCase.execute(candidateEntity);
             return ResponseEntity.ok().body(result);
         } catch (Exception exception){
             return ResponseEntity.badRequest().body(exception.getMessage());

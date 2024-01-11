@@ -12,7 +12,7 @@ public class CreateCandidateUseCase {
     @Autowired
     private CandidadeRepository candidadeRepository;
 
-    public CandidateEntity excute(CandidateEntity candidateEntity){
+    public CandidateEntity execute(CandidateEntity candidateEntity){
         candidadeRepository.findByUsernameOrEmail(candidateEntity.getUsername(), candidateEntity.getEmail())
                 .ifPresent(user ->{
                     throw new UserAlreadyExists("O usuário ja está cadastrado");
