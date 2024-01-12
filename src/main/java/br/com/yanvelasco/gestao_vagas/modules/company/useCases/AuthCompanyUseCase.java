@@ -28,7 +28,7 @@ public class AuthCompanyUseCase {
 
     public String execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
 
-        var company = companyRepository.findByUsername(authCompanyDTO.username(), authCompanyDTO.password()).orElseThrow(() ->{
+        var company = companyRepository.findByUsername(authCompanyDTO.username()).orElseThrow(() ->{
                     throw new UsernameNotFoundException("Username/password incorreto.");
                }
         );

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,5 +13,6 @@ import lombok.NoArgsConstructor;
 public class AuthCandidateResponseDTO {
 
     private String acces_token;
+    private Long expires_in;
 
 }
