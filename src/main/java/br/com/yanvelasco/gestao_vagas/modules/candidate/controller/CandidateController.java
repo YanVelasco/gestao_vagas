@@ -33,14 +33,13 @@ public class CandidateController {
         }
     }
 
-    @GetMapping("/")
-    public ResponseEntity<Object> get(HttpServletRequest httpServletReques){
-        var idCandidate = httpServletReques.getAttribute("candidate_id");
+    @GetMapping
+    public ResponseEntity<Object> get(HttpServletRequest httpServletRequest){
+        var idCandidate = httpServletRequest.getAttribute("candidate_id");
        try {
            var profile =  profileCandidateUseCase
                    .execute(UUID.fromString(idCandidate.toString()));
            return ResponseEntity.ok().body(profile);
-
        } catch (Exception exception){
            return ResponseEntity.badRequest().body(exception.getMessage());
        }
