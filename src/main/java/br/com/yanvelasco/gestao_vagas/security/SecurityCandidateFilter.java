@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.modules.company.repositories.security;
+package br.com.yanvelasco.gestao_vagas.security;
 
 import java.io.IOException;
 import java.util.Collections;

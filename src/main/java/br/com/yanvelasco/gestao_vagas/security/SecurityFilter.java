@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.modules.company.repositories.security;
+package br.com.yanvelasco.gestao_vagas.security;
 
 import br.com.yanvelasco.gestao_vagas.providers.JWTProvider;
 import jakarta.servlet.FilterChain;
