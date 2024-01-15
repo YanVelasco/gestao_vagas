@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.security;
+package br.com.yanvelasco.gestao_vagas.modules.company.repositories.security;
 
 import br.com.yanvelasco.gestao_vagas.providers.JWTProvider;
 import jakarta.servlet.FilterChain;
@@ -25,7 +25,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-        SecurityContextHolder.getContext().setAuthentication(null);
+       //SecurityContextHolder.getContext().setAuthentication(null);
         String header = request.getHeader("Authorization");
 
         if (request.getRequestURI().startsWith("/company")){
