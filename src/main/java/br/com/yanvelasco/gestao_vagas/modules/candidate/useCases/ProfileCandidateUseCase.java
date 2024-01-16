@@ -18,6 +18,7 @@ public class ProfileCandidateUseCase {
         var candidate = candidadeRepository.findById(idCandidate).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
         var candidateDTO = ProfileCandidateResponseDTO.builder()
+                .name(candidate.getName())
                 .username(candidate.getUsername())
                 .description(candidate.getDescription())
                 .email(candidate.getEmail())
@@ -25,6 +26,5 @@ public class ProfileCandidateUseCase {
 
         return candidateDTO;
     }
-
 
 }

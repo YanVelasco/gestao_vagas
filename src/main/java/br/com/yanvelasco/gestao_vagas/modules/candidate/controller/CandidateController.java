@@ -1,5 +1,6 @@
 package br.com.yanvelasco.gestao_vagas.modules.candidate.controller;
 
+import br.com.yanvelasco.gestao_vagas.modules.candidate.dto.ProfileCandidateResponseDTO;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.entity.CandidateEntity;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.useCases.CreateCandidateUseCase;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -49,6 +51,15 @@ public class CandidateController {
 
     @GetMapping
     @PreAuthorize("hasRole('CANDIDATE')")
+    @Tag(name = "Candidato", description = "Informações do candidato")
+    @Operation(summary = "Perfil do Candidato", description = "Essa função é responsável por buscar as informações do candidato")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(array = @ArraySchema(schema = @Schema(implementation = ProfileCandidateResponseDTO.class)))
+            }),
+            @ApiResponse(responseCode = "400", description = "Usuário não encontrado")
+    })
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<Object> get(HttpServletRequest httpServletRequest){
         var idCandidate = httpServletRequest.getAttribute("candidate_id");
        try {
