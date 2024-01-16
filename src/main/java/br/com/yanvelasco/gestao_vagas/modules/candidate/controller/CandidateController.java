@@ -1,5 +1,6 @@
 package br.com.yanvelasco.gestao_vagas.modules.candidate.controller;
 
+import br.com.yanvelasco.gestao_vagas.modules.candidate.dto.CreateCandidateDTO;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.dto.ProfileCandidateResponseDTO;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.entity.CandidateEntity;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.useCases.CreateCandidateUseCase;
@@ -15,18 +16,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/candidate")
+@Tag(name = "Candidato", description = "Informações do candidato")
 public class CandidateController {
 
     @Autowired
@@ -39,10 +39,17 @@ public class CandidateController {
     private ListAllJobsByFilterUseCase listAllJobsByFilterUseCase;
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody @Valid CandidateEntity candidateEntity){
-        System.out.println(candidateEntity);
+    @Operation(summary = "Cadastro de Candidato", description = "Essa função é responsável por cadastrar candidatos")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(array = @ArraySchema(schema = @Schema(implementation = CandidateEntity.class)))
+            }),
+            @ApiResponse(responseCode = "400", description = "Usuário já existe")
+    })
+    public ResponseEntity<Object> create(@RequestBody CreateCandidateDTO createCandidateDTO){
+        System.out.println(createCandidateDTO);
         try {
-            var result = createCandidateUseCase.execute(candidateEntity);
+            var result = createCandidateUseCase.execute(createCandidateDTO);
             return ResponseEntity.ok().body(result);
         } catch (Exception exception){
             return ResponseEntity.badRequest().body(exception.getMessage());
@@ -51,7 +58,6 @@ public class CandidateController {
 
     @GetMapping
     @PreAuthorize("hasRole('CANDIDATE')")
-    @Tag(name = "Candidato", description = "Informações do candidato")
     @Operation(summary = "Perfil do Candidato", description = "Essa função é responsável por buscar as informações do candidato")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
@@ -73,7 +79,6 @@ public class CandidateController {
 
     @GetMapping("/job")
     @PreAuthorize("hasRole('CANDIDATE')")
-    @Tag(name = "Candidato", description = "Informações do candidato")
     @Operation(summary = "Listagem de vagas disponíveis", description = "Lista de vagas")
     @ApiResponse(responseCode = "200", content = {
             @Content(array = @ArraySchema(schema = @Schema(implementation = JobEntity.class)))
