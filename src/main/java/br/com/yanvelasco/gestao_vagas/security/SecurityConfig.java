@@ -26,18 +26,21 @@ public class SecurityConfig {
             "/swagger-resources/**"
     };
 
+    private static final String[] PATHS = {
+            "/candidate",
+            "/company",
+            "/company/auth",
+            "/candidate/auth"
+    };
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-
                     auth.requestMatchers("/candidate").permitAll()
-                            .requestMatchers("/company").permitAll()
-                            .requestMatchers("/company/auth").permitAll()
-                            .requestMatchers("/candidate/auth").permitAll()
+                            .requestMatchers(PATHS).permitAll()
                             .requestMatchers(SWAGGER_LIST).permitAll();
                     auth.anyRequest().authenticated();
-
                 })
                 .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class)
