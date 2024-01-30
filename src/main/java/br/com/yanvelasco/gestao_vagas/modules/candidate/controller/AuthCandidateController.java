@@ -1,7 +1,8 @@
 package br.com.yanvelasco.gestao_vagas.modules.candidate.controller;
 
 import br.com.yanvelasco.gestao_vagas.modules.candidate.dto.AuthCandidateRequestDTO;
-import br.com.yanvelasco.gestao_vagas.modules.candidate.useCases.AuthCandidateUseCase;
+import br.com.yanvelasco.gestao_vagas.modules.candidate.usecases.AuthCandidateUseCase;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

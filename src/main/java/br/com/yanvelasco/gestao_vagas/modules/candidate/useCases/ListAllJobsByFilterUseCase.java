@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.modules.candidate.useCases;
+package br.com.yanvelasco.gestao_vagas.modules.candidate.usecases;
 
 import br.com.yanvelasco.gestao_vagas.modules.company.entities.JobEntity;
 import br.com.yanvelasco.gestao_vagas.modules.company.repositories.JobRepository;

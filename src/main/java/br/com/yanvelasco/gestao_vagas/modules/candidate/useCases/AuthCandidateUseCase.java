@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.modules.candidate.useCases;
+package br.com.yanvelasco.gestao_vagas.modules.candidate.usecases;
 
 import br.com.yanvelasco.gestao_vagas.modules.candidate.dto.AuthCandidateRequestDTO;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.dto.AuthCandidateResponseDTO;
@@ -28,13 +28,14 @@ public class AuthCandidateUseCase {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public AuthCandidateResponseDTO execute(AuthCandidateRequestDTO authCandidateRequestDTO) throws AuthenticationException {
-       var candidate = candidadeRepository.findByUsername(authCandidateRequestDTO.username())
-               .orElseThrow(() -> new UsernameNotFoundException("Username/password incorreto."));
+    public AuthCandidateResponseDTO execute(AuthCandidateRequestDTO authCandidateRequestDTO)
+            throws AuthenticationException {
+        var candidate = candidadeRepository.findByUsername(authCandidateRequestDTO.username())
+                .orElseThrow(() -> new UsernameNotFoundException("Username/password incorreto."));
 
         var passwordMatches = passwordEncoder.matches(authCandidateRequestDTO.password(), candidate.getPassword());
 
-        if (!passwordMatches){
+        if (!passwordMatches) {
             throw new AuthenticationException();
         }
 
@@ -47,7 +48,8 @@ public class AuthCandidateUseCase {
                 .withClaim("roles", List.of("CANDIDATE"))
                 .sign(algorithm);
 
-        var authCandidateResponseDTO = AuthCandidateResponseDTO.builder().acces_token(token).expires_in(expireIn.toEpochMilli()).build();
+        var authCandidateResponseDTO = AuthCandidateResponseDTO.builder().acces_token(token)
+                .expires_in(expireIn.toEpochMilli()).build();
 
         return authCandidateResponseDTO;
     }

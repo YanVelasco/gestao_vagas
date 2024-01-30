@@ -3,9 +3,9 @@ package br.com.yanvelasco.gestao_vagas.modules.candidate.controller;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.dto.CreateCandidateDTO;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.dto.ProfileCandidateResponseDTO;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.entity.CandidateEntity;
-import br.com.yanvelasco.gestao_vagas.modules.candidate.useCases.CreateCandidateUseCase;
-import br.com.yanvelasco.gestao_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
-import br.com.yanvelasco.gestao_vagas.modules.candidate.useCases.ProfileCandidateUseCase;
+import br.com.yanvelasco.gestao_vagas.modules.candidate.usecases.CreateCandidateUseCase;
+import br.com.yanvelasco.gestao_vagas.modules.candidate.usecases.ListAllJobsByFilterUseCase;
+import br.com.yanvelasco.gestao_vagas.modules.candidate.usecases.ProfileCandidateUseCase;
 import br.com.yanvelasco.gestao_vagas.modules.company.entities.JobEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -46,12 +46,12 @@ public class CandidateController {
             }),
             @ApiResponse(responseCode = "400", description = "Usuário já existe")
     })
-    public ResponseEntity<Object> create(@RequestBody CreateCandidateDTO createCandidateDTO){
+    public ResponseEntity<Object> create(@RequestBody CreateCandidateDTO createCandidateDTO) {
         System.out.println(createCandidateDTO);
         try {
             var result = createCandidateUseCase.execute(createCandidateDTO);
             return ResponseEntity.ok().body(result);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
@@ -66,15 +66,15 @@ public class CandidateController {
             @ApiResponse(responseCode = "400", description = "Usuário não encontrado")
     })
     @SecurityRequirement(name = "jwt_auth")
-    public ResponseEntity<Object> get(HttpServletRequest httpServletRequest){
+    public ResponseEntity<Object> get(HttpServletRequest httpServletRequest) {
         var idCandidate = httpServletRequest.getAttribute("candidate_id");
-       try {
-           var profile =  profileCandidateUseCase
-                   .execute(UUID.fromString(idCandidate.toString()));
-           return ResponseEntity.ok().body(profile);
-       } catch (Exception exception){
-           return ResponseEntity.badRequest().body(exception.getMessage());
-       }
+        try {
+            var profile = profileCandidateUseCase
+                    .execute(UUID.fromString(idCandidate.toString()));
+            return ResponseEntity.ok().body(profile);
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
     }
 
     @GetMapping("/job")
@@ -84,7 +84,7 @@ public class CandidateController {
             @Content(array = @ArraySchema(schema = @Schema(implementation = JobEntity.class)))
     })
     @SecurityRequirement(name = "jwt_auth")
-    public List<JobEntity> findJobByDescription(@RequestParam String description){
+    public List<JobEntity> findJobByDescription(@RequestParam String description) {
         return listAllJobsByFilterUseCase.execute(description);
     }
 
