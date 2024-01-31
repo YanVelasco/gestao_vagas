@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.yanvelasco.gestao_vagas.exceptions.NotFound;
+import br.com.yanvelasco.gestao_vagas.modules.candidate.repository.ApplyJobRepository;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.repository.CandidadeRepository;
 import br.com.yanvelasco.gestao_vagas.modules.company.repositories.JobRepository;
 
@@ -17,6 +18,9 @@ public class ApplyJobCandidateUseCase {
 
     @Autowired
     private JobRepository jobRepository;
+
+    @Autowired
+    private ApplyJobRepository applyJobRepository;
 
     // ID do Candidato e ID da Vaga
     public void execute(UUID idCandidate, UUID idJob) {
