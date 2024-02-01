@@ -23,6 +23,7 @@ public class ApplyJobCandidateUseCase {
     private ApplyJobRepository applyJobRepository;
 
     // ID do Candidato e ID da Vaga
+    @SuppressWarnings("null")
     public void execute(UUID idCandidate, UUID idJob) {
         candidadeRepository.findById(idCandidate).orElseThrow(() -> {
             throw new NotFound("Usuário não encontrado");

@@ -2,7 +2,7 @@ package br.com.yanvelasco.gestao_vagas.modules.company.controllers;
 
 import br.com.yanvelasco.gestao_vagas.modules.company.dto.CreateJobDTO;
 import br.com.yanvelasco.gestao_vagas.modules.company.entities.JobEntity;
-import br.com.yanvelasco.gestao_vagas.modules.company.useCases.CreateJobUseCase;
+import br.com.yanvelasco.gestao_vagas.modules.company.usecases.CreateJobUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

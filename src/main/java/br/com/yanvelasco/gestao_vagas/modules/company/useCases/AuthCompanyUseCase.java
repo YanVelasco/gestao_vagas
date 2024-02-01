@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.modules.company.useCases;
+package br.com.yanvelasco.gestao_vagas.modules.company.usecases;
 
 import br.com.yanvelasco.gestao_vagas.modules.company.dto.AuthCompanyDTO;
 import br.com.yanvelasco.gestao_vagas.modules.company.dto.AuthCompanyResponseDTO;
@@ -30,14 +30,13 @@ public class AuthCompanyUseCase {
 
     public AuthCompanyResponseDTO execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
 
-        var company = companyRepository.findByUsername(authCompanyDTO.username()).orElseThrow(() ->{
-                    throw new UsernameNotFoundException("Username/password incorreto.");
-               }
-        );
+        var company = companyRepository.findByUsername(authCompanyDTO.username()).orElseThrow(() -> {
+            throw new UsernameNotFoundException("Username/password incorreto.");
+        });
 
         var passwordMatches = passwordEncoder.matches(authCompanyDTO.password(), company.getPassword());
 
-        if (!passwordMatches){
+        if (!passwordMatches) {
             throw new AuthenticationException();
         }
 
@@ -45,18 +44,17 @@ public class AuthCompanyUseCase {
 
         var expiresIn = Instant.now().plus(Duration.ofHours(2));
 
-         var token = JWT.create().withIssuer("Javagas")
-                 .withExpiresAt(expiresIn)
-                 .withSubject(company.getId().toString())
-                 .withClaim("roles", List.of("COMPANY"))
-                 .sign(algorithm);
+        var token = JWT.create().withIssuer("Javagas")
+                .withExpiresAt(expiresIn)
+                .withSubject(company.getId().toString())
+                .withClaim("roles", List.of("COMPANY"))
+                .sign(algorithm);
 
         var authCompanyResponseDTO = AuthCompanyResponseDTO.builder()
                 .acces_token(token)
                 .expires_in(expiresIn)
-                .build()
-                ;
+                .build();
 
-         return authCompanyResponseDTO;
+        return authCompanyResponseDTO;
     }
 }

@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.modules.company.useCases;
+package br.com.yanvelasco.gestao_vagas.modules.company.usecases;
 
 import br.com.yanvelasco.gestao_vagas.exceptions.UserAlreadyExists;
 import br.com.yanvelasco.gestao_vagas.modules.company.entities.CompanyEntity;

@@ -1,7 +1,7 @@
 package br.com.yanvelasco.gestao_vagas.modules.company.controllers;
 
 import br.com.yanvelasco.gestao_vagas.modules.company.entities.CompanyEntity;
-import br.com.yanvelasco.gestao_vagas.modules.company.useCases.CreateCompanyUseCase;
+import br.com.yanvelasco.gestao_vagas.modules.company.usecases.CreateCompanyUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
