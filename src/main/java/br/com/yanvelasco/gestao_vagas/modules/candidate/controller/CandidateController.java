@@ -3,6 +3,7 @@ package br.com.yanvelasco.gestao_vagas.modules.candidate.controller;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.dto.CreateCandidateDTO;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.dto.ProfileCandidateResponseDTO;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.entity.CandidateEntity;
+import br.com.yanvelasco.gestao_vagas.modules.candidate.usecases.ApplyJobCandidateUseCase;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.usecases.CreateCandidateUseCase;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.usecases.ListAllJobsByFilterUseCase;
 import br.com.yanvelasco.gestao_vagas.modules.candidate.usecases.ProfileCandidateUseCase;
@@ -37,6 +38,9 @@ public class CandidateController {
 
     @Autowired
     private ListAllJobsByFilterUseCase listAllJobsByFilterUseCase;
+
+    @Autowired
+    private ApplyJobCandidateUseCase applyJobCandidateUseCase;
 
     @PostMapping
     @Operation(summary = "Cadastro de Candidato", description = "Essa função é responsável por cadastrar candidatos")
@@ -79,13 +83,28 @@ public class CandidateController {
 
     @GetMapping("/job")
     @PreAuthorize("hasRole('CANDIDATE')")
-    @Operation(summary = "Listagem de vagas disponíveis", description = "Lista de vagas")
+    @Operation(summary = "Listagem de vagas disponíveis", description = "Essa função é responsável por lista de vagas.")
     @ApiResponse(responseCode = "200", content = {
             @Content(array = @ArraySchema(schema = @Schema(implementation = JobEntity.class)))
     })
     @SecurityRequirement(name = "jwt_auth")
     public List<JobEntity> findJobByDescription(@RequestParam String description) {
         return listAllJobsByFilterUseCase.execute(description);
+    }
+
+    @PostMapping("/job/apply")
+    @PreAuthorize("hasRole('CANDIDATE')")
+    @SecurityRequirement(name = "jwt_auth")
+    @Operation(summary = "Inscrição do candidato para uma vaga", description = "Essa função é responsável por realizar a inscrição do candidato em uma vaga.")
+    public ResponseEntity<Object> applyJob(HttpServletRequest httpServletRequest, @RequestBody UUID idJob){
+        var idCandidate = httpServletRequest.getAttribute("candidate_id");
+        try {
+            var result = applyJobCandidateUseCase.execute(UUID.fromString(idCandidate.toString()), idJob);
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 
 }
