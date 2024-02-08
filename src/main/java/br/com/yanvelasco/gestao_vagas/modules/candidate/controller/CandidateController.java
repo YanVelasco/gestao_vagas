@@ -51,7 +51,6 @@ public class CandidateController {
             @ApiResponse(responseCode = "400", description = "Usuário já existe")
     })
     public ResponseEntity<Object> create(@RequestBody CreateCandidateDTO createCandidateDTO) {
-        System.out.println(createCandidateDTO);
         try {
             var result = createCandidateUseCase.execute(createCandidateDTO);
             return ResponseEntity.ok().body(result);
