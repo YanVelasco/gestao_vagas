@@ -20,7 +20,6 @@ public class SecurityCompanyFilter extends OncePerRequestFilter {
     @Autowired
     private JWTCompanyProvider jwtProvider;
 
-    @SuppressWarnings("null")
     @Override
     public void doFilterInternal(HttpServletRequest request,
             HttpServletResponse response,

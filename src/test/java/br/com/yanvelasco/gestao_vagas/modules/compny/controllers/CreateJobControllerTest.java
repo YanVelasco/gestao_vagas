@@ -18,8 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import br.com.yanvelasco.gestao_vagas.exceptions.NotFound;
-import static org.assertj.core.api.Assertions.assertThat;
+
 import br.com.yanvelasco.gestao_vagas.modules.company.dto.CreateJobDTO;
 import br.com.yanvelasco.gestao_vagas.modules.company.entities.CompanyEntity;
 import br.com.yanvelasco.gestao_vagas.modules.company.repositories.CompanyRepository;
@@ -94,4 +93,5 @@ public class CreateJobControllerTest {
                                                                                 "JAVAGAS_@123#")))
                                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
         }
+
 }
