@@ -1,7 +1,9 @@
 package br.com.yanvelasco.gestao_vagas.modules.company.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 
+@Builder
 public record CreateJobDTO(
 
         @Schema(example = "Vaga pra pessoa desenvolvedora Júnior", requiredMode = Schema.RequiredMode.REQUIRED)
