@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.modules.compny.controllers;
+package br.com.yanvelasco.gestao_vagas.modules.company.controllers;
 
 import java.util.UUID;
 

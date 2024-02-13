@@ -22,7 +22,6 @@ public class JWTCompanyProvider {
             var tokenDecoded = JWT.require(algorithm).build().verify(token);
             return tokenDecoded;
         }catch (JWTVerificationException jwtVerificationException){
-            jwtVerificationException.printStackTrace();
             return null;
         }
 
