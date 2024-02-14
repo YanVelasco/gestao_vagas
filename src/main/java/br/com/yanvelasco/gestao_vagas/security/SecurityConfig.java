@@ -30,7 +30,8 @@ public class SecurityConfig {
             "/candidate",
             "/company",
             "/company/auth",
-            "/candidate/auth"
+            "/candidate/auth",
+            "/actuator/**"
     };
 
     @Bean
@@ -42,14 +43,13 @@ public class SecurityConfig {
                     auth.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class)
-                .addFilterBefore(securityCompanyFilter, BasicAuthenticationFilter.class)
-        ;
+                .addFilterBefore(securityCompanyFilter, BasicAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
