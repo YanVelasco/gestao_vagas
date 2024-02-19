@@ -1,4 +1,4 @@
-package br.com.yanvelasco.gestao_vagas.config;
+package br.com.yanvelasco.gestao_vagas.swaggerconfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
