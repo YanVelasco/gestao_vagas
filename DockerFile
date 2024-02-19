@@ -1,15 +1,19 @@
-FROM ubuntu:latest AS build
+# Use uma imagem base para a compilação
+FROM maven:latest AS build
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-COPY . .
-
-RUN apt-get install maven -y
+# Copie o código-fonte e construa o projeto
+COPY . /app
+WORKDIR /app
 RUN mvn clean install
 
+# Use outra imagem base para a execução do aplicativo
 FROM openjdk:17-jdk-slim
+
+# Copie o artefato construído do estágio anterior
+COPY --from=build /app/target/gestao_vagas-0.0.1.jar /app/app.jar
+
+# Exponha a porta em que o aplicativo será executado
 EXPOSE 8080
 
-COPY --from=build /target/gestao_vagas-0.0.1.jar app.jar
-
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+# Comando de entrada para iniciar o aplicativo
+CMD ["java", "-jar", "/app/app.jar"]
