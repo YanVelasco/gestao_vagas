@@ -13,5 +13,5 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-        distribuition: temurin
-        java-version: 17
+          distribution: temurin
+          java-version: 17
