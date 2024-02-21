@@ -31,6 +31,6 @@ jobs:
       - name: Pull image docker hub
         run: docker pull yanvelasco/gestao_vagas:latest
       - name: remove container
-        run: docker rm -f
+        run: docker rm -f gestao-vagas || true
       - name: Run docker container gestao-vagas
-        run: docker run -d -p 8080:8080 e- DATABASE_URL=${{secrets.DB_HOST}} -e DATABASE_PASSWORD=${{secrets.DB_PASSWORD}} -e DATABESE_USER=${{secrets.DB_USER}} --name gestao-vagas yanvelasco/gestao_vagas
+        run: docker run -d -p 8080:8080 -e DB_HOST=${{secrets.DB_HOST}} -e DB_PASSWORD=${{secrets.DB_PASSWORD}} -e DB_USER=${{secrets.DB_USER}} --name gestao-vagas yanvelasco/gestao_vagas:latest
