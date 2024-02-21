@@ -23,3 +23,14 @@ jobs:
         run: docker build -t yanvelasco/gestao_vagas .
       - name: Publish image
         run: docker push yanvelasco/gestao_vagas
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image docker hub
+        run: docker pull yanvelasco/gestao_vagas:latest
+      - name: remove container
+        run: docker rm -f
+      - name: Run docker container gestao-vagas
+        run: docker run -d -p 8080:8080 e- DATABASE_URL=${{secrets.DB_HOST}} -e DATABASE_PASSWORD=${{secrets.DB_PASSWORD}} -e DATABESE_USER=${{secrets.DB_USER}} --name gestao-vagas yanvelasco/gestao_vagas
